@@ -21,7 +21,7 @@ const Chat: FC = () => {
       <Grid
         justifyContent="center"
         container
-        sx={{ height: window.innerHeight - 50, marginTop: 20 }}
+        sx={{ height: window.innerHeight - 50, marginTop: '20px' }}
       >
         <div className="chat-box">
           {messages &&
