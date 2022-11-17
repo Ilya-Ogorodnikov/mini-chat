@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { Container, Grid } from '@mui/material';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection, orderBy, query } from 'firebase/firestore';
@@ -14,6 +14,14 @@ const Chat: FC = () => {
     query(collection(firestore, 'messages'), orderBy('createdAt')),
   );
 
+  const divRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => divRef.current?.scrollIntoView();
+
   return loading ? (
     <Loader />
   ) : (
@@ -28,6 +36,7 @@ const Chat: FC = () => {
             messages.map(message => (
               <Message message={message} key={message.createdAt} />
             ))}
+          <div ref={divRef}></div>
         </div>
 
         <CreateMessage />
